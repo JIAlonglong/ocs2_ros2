@@ -22,6 +22,7 @@ find_package(pybind11 CONFIG)
 
 find_package(ocs2_python_interface REQUIRED)
 find_package(ocs2_ros_interfaces REQUIRED)
+set(onnxruntime_DIR /home/jialonglong/onnxruntime-linux-x64-gpu-1.22.0/lib/cmake/onnxruntime)
 find_package(onnxruntime REQUIRED)
 
 ###########
@@ -42,6 +43,7 @@ add_library(${PROJECT_NAME}
 )
 target_include_directories(${PROJECT_NAME}
         PUBLIC
+        "/home/jialonglong/onnxruntime-linux-x64-gpu-1.22.0/include"
         ${onnxruntime_INCLUDE_DIRS}
         "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
         "$<INSTALL_INTERFACE:include/${PROJECT_NAME}>")

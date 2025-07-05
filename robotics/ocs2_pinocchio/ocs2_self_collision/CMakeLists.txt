@@ -7,6 +7,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 set(dependencies
         ocs2_pinocchio_interface
+        hpp-fcl
 )
 
 # Include the FindPkgConfig module
@@ -24,7 +25,8 @@ endif ()
 find_package(ament_cmake REQUIRED)
 
 find_package(ocs2_pinocchio_interface REQUIRED)
-
+find_package(hpp-fcl REQUIRED)
+link_directories(/opt/ros/humble/lib/x86_64-linux-gnu/)
 ###########
 ## Build ##
 ###########
@@ -53,7 +55,7 @@ target_include_directories(${PROJECT_NAME}
         "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
         "$<INSTALL_INTERFACE:include/${PROJECT_NAME}>")
 if (URDFDOM_VERSION VERSION_GREATER_EQUAL 4.0.0)
-    target_link_libraries(${PROJECT_NAME} tinyxml2)
+    target_link_libraries(${PROJECT_NAME} tinyxml2 hpp-fcl::hpp-fcl)
 endif ()
 ament_target_dependencies(${PROJECT_NAME} ${dependencies})
 target_compile_options(${PROJECT_NAME} PUBLIC ${FLAGS})

@@ -82,10 +82,11 @@ ament_lint_auto_find_test_dependencies()
 
 if (BUILD_TESTING)
     find_package(ament_cmake_gtest REQUIRED)
-
+    link_directories(/opt/ros/humble/lib/x86_64-linux-gnu/) 
+    find_package(hpp-fcl REQUIRED)    
     ament_add_gtest(PinocchioSphereKinematicsTest test/testPinocchioSphereKinematics.cpp)
     ament_target_dependencies(PinocchioSphereKinematicsTest ${dependencies} ocs2_robotic_assets)
-    target_link_libraries(PinocchioSphereKinematicsTest ${PROJECT_NAME} ${COAL_LIBRARIES})
+    target_link_libraries(PinocchioSphereKinematicsTest ${PROJECT_NAME} ${COAL_LIBRARIES} hpp-fcl)
     target_compile_options(PinocchioSphereKinematicsTest PUBLIC ${FLAGS})
 
 endif ()

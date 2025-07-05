@@ -80,7 +80,7 @@ namespace ocs2::legged_robot {
             promise.set_value(msg);
         };
 
-        auto subscription = node_->create_subscription<grid_map_msgs::msg::GridMap>(
+        auto subscription = getNode()->create_subscription<grid_map_msgs::msg::GridMap>(
             "raisim_heightmap", 10, callback);
 
         if (future.wait_for(timeout) == std::future_status::timeout) {

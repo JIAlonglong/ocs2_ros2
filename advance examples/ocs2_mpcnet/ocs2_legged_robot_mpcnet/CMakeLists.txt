@@ -19,7 +19,8 @@ set(dependencies
 find_package(ament_cmake REQUIRED)
 find_package(Python COMPONENTS Interpreter Development)
 find_package(pybind11 REQUIRED)
-
+set(onnxruntime_DIR /home/jialonglong/onnxruntime-linux-x64-gpu-1.22.0/lib/cmake/onnxruntime)
+find_package(onnxruntime REQUIRED)
 find_package(ocs2_mpcnet_core REQUIRED)
 find_package(ocs2_legged_robot_raisim REQUIRED)
 
@@ -34,6 +35,7 @@ add_library(${PROJECT_NAME}
 )
 target_include_directories(${PROJECT_NAME}
         PUBLIC
+        "/home/jialonglong/onnxruntime-linux-x64-gpu-1.22.0/include"
         "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
         "$<INSTALL_INTERFACE:include/${PROJECT_NAME}>"
 )

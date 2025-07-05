@@ -89,7 +89,8 @@ ament_lint_auto_find_test_dependencies()
 
 if (BUILD_TESTING)
     find_package(ament_cmake_gtest)
-
+    link_directories(/opt/ros/humble/lib/x86_64-linux-gnu/) 
+    find_package(hpp-fcl REQUIRED)
     ament_add_gtest(${PROJECT_NAME}_test
             test/testSelfCollision.cpp
             test/testEndEffectorConstraint.cpp
@@ -100,7 +101,7 @@ if (BUILD_TESTING)
             ${PROJECT_BINARY_DIR}/include
     )
     ament_target_dependencies(${PROJECT_NAME}_test ${dependencies})
-    target_link_libraries(${PROJECT_NAME}_test ${PROJECT_NAME})
+    target_link_libraries(${PROJECT_NAME}_test ${PROJECT_NAME} hpp-fcl)
     target_compile_options(${PROJECT_NAME}_test PRIVATE ${FLAGS})
 
 endif ()

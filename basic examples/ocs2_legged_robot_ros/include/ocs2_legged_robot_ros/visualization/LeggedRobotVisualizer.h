@@ -47,9 +47,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 namespace ocs2::legged_robot
 {
-    class LeggedRobotVisualizer final : public DummyObserver
+    class LeggedRobotVisualizer : public DummyObserver
     {
     public:
+        rclcpp::Node::SharedPtr getNode() const { return node_; }
+        rclcpp_lifecycle::LifecycleNode::SharedPtr getLifecycleNode() const { return lifecycleNode_; }
         /** Visualization settings (publicly available) */
         std::string frameId_ = "odom"; // Frame name all messages are published in
         scalar_t footMarkerDiameter_ = 0.03; // Size of the spheres at the feet
@@ -110,7 +112,8 @@ namespace ocs2::legged_robot
 
     protected:
         rclcpp::Clock::SharedPtr clock_;
-
+        rclcpp::Node::SharedPtr node_;
+        rclcpp_lifecycle::LifecycleNode::SharedPtr lifecycleNode_;    
     private:
         LeggedRobotVisualizer(const LeggedRobotVisualizer&) = delete;
 

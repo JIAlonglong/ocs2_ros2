@@ -12,6 +12,7 @@ set(dependencies
         robot_state_publisher
         ocs2_self_collision_visualization
         ocs2_mobile_manipulator
+        hpp-fcl
 )
 
 find_package(ament_cmake REQUIRED)
@@ -21,6 +22,8 @@ find_package(kdl_parser REQUIRED)
 find_package(robot_state_publisher REQUIRED)
 find_package(ocs2_self_collision_visualization REQUIRED)
 find_package(ocs2_mobile_manipulator REQUIRED)
+find_package(hpp-fcl REQUIRED)
+link_directories(/opt/ros/humble/lib/x86_64-linux-gnu/) 
 
 ###########
 ## Build ##
@@ -48,13 +51,13 @@ target_compile_options(${PROJECT_NAME} PUBLIC ${OCS2_CXX_FLAGS})
 
 # MPC node
 add_executable(mobile_manipulator_mpc_node src/MobileManipulatorMpcNode.cpp)
-target_link_libraries(mobile_manipulator_mpc_node ${PROJECT_NAME})
+target_link_libraries(mobile_manipulator_mpc_node ${PROJECT_NAME} hpp-fcl::hpp-fcl)
 ament_target_dependencies(mobile_manipulator_mpc_node ${dependencies})
 target_compile_options(mobile_manipulator_mpc_node PUBLIC ${FLAGS})
 
 # DistanceVisualization node
 add_executable(mobile_manipulator_distance_visualization src/MobileManipulatorDistanceVisualization.cpp)
-target_link_libraries(mobile_manipulator_distance_visualization ${PROJECT_NAME})
+target_link_libraries(mobile_manipulator_distance_visualization ${PROJECT_NAME} hpp-fcl::hpp-fcl)
 ament_target_dependencies(mobile_manipulator_distance_visualization ${dependencies})
 target_compile_options(mobile_manipulator_distance_visualization PUBLIC ${FLAGS})
 
@@ -63,13 +66,13 @@ add_executable(mobile_manipulator_dummy_mrt_node
         src/MobileManipulatorDummyMRT.cpp
         src/MobileManipulatorDummyVisualization.cpp
 )
-target_link_libraries(mobile_manipulator_dummy_mrt_node ${PROJECT_NAME})
+target_link_libraries(mobile_manipulator_dummy_mrt_node ${PROJECT_NAME} hpp-fcl::hpp-fcl)
 ament_target_dependencies(mobile_manipulator_dummy_mrt_node ${dependencies})
 target_compile_options(mobile_manipulator_dummy_mrt_node PUBLIC ${FLAGS})
 
 # Target node
 add_executable(mobile_manipulator_target src/MobileManipulatorTarget.cpp)
-target_link_libraries(mobile_manipulator_target ${PROJECT_NAME})
+target_link_libraries(mobile_manipulator_target ${PROJECT_NAME} hpp-fcl::hpp-fcl)
 ament_target_dependencies(mobile_manipulator_target ${dependencies})
 target_compile_options(mobile_manipulator_target PUBLIC ${FLAGS})
 

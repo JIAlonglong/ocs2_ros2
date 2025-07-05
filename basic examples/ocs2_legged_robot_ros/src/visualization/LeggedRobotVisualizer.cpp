@@ -61,7 +61,9 @@ namespace ocs2::legged_robot
           endEffectorKinematicsPtr_(endEffectorKinematics.clone()),
           tfBroadcaster_(node),
           lastTime_(std::numeric_limits<scalar_t>::lowest()),
-          minPublishTimeDifference_(1.0 / maxUpdateFrequency)
+          minPublishTimeDifference_(1.0 / maxUpdateFrequency),
+          node_(node),
+          lifecycleNode_(nullptr)
     {
         clock_ = node->get_clock();
 
@@ -104,7 +106,9 @@ namespace ocs2::legged_robot
         endEffectorKinematicsPtr_(endEffectorKinematics.clone()),
         tfBroadcaster_(node),
         lastTime_(std::numeric_limits<scalar_t>::lowest()),
-        minPublishTimeDifference_(1.0 / maxUpdateFrequency)
+        minPublishTimeDifference_(1.0 / maxUpdateFrequency),
+        node_(nullptr),
+        lifecycleNode_(node)
     {
         clock_ = node->get_clock();
         endEffectorKinematicsPtr_->setPinocchioInterface(pinocchioInterface_);
